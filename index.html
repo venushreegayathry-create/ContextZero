@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context Zero — Prompt Injection Detection & LLM Penetration Testing</title>
+  <meta name="description" content="Interactive educational platform for understanding prompt injection attacks, detection techniques, and defense strategies for LLM applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- SECTION 1: NAVIGATION BAR -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">CONTEXT<span class="highlight">//ZERO</span></div>
+      <div class="nav-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="nav-links">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#attacks" class="nav-link">Attacks</a>
+        <a href="#detection" class="nav-link">Detection</a>
+        <a href="#owasp" class="nav-link">OWASP</a>
+        <a href="#defense" class="nav-link">Defense</a>
+        <a href="#pentest" class="nav-link">Pen Test</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SECTION 2: HERO -->
+  <section id="hero" class="section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🔒 Information Security Mini-Project</div>
+      <h1 class="hero-title">Context<span class="highlight">Zero</span><br>Prompt Injection Detection &<br>LLM Penetration Testing</h1>
+      <p class="hero-subtitle">An interactive educational platform exploring how prompt injection attacks threaten LLM applications — and how to defend against them.</p>
+      
+      <div class="hero-actions">
+        <a href="#attacks" class="btn btn-primary">Explore Attacks</a>
+        <a href="#detection" class="btn btn-outline">Try Detection Lab</a>
+      </div>
+
+      <div id="hero-terminal" class="hero-terminal animate-on-scroll">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="terminal-title">prompt_injection_demo.py</div>
+        </div>
+        <div id="hero-terminal-body" class="terminal-body"></div>
+      </div>
+
+      <div class="hero-stats animate-on-scroll">
+        <div class="stat-card">
+          <div class="stat-value">7</div>
+          <div class="stat-label">Attack Vectors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Detection Engines</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Pen Test Scenarios</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ATTACK LIBRARY -->
+  <section id="attacks" class="section">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title">Attack Library</h2>
+      <p class="section-subtitle">Explore 7 categories of prompt injection attacks with interactive demonstrations</p>
+    </div>
+    
+    <div class="attack-filters animate-on-scroll">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="critical">Critical</button>
+      <button class="filter-btn" data-filter="high">High</button>
+      <button class="filter-btn" data-filter="medium">Medium</button>
+    </div>
+
+    <div id="attack-grid" class="attack-grid animate-on-scroll">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ATTACK MODAL -->
+  <div id="attack-modal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-title">Attack Name</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: DETECTION LAB -->
+  <section id="detection" class="section">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title">Detection Lab</h2>
+      <p class="section-subtitle">Test prompts against multiple detection engines in real-time</p>
+    </div>
+
+    <div class="detection-container animate-on-scroll">
+      <div class="detection-input-area">
+        <label for="detection-input">Enter a prompt to analyze:</label>
+        <textarea id="detection-input" placeholder="Type or paste a prompt here to analyze for injection patterns..."></textarea>
+        
+        <div class="sample-prompts">
+          <span>Try a sample:</span>
+          <div id="sample-prompts-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="detection-actions">
+          <button id="analyze-btn" class="btn btn-primary">⚡ Analyze Prompt</button>
+          <button id="clear-btn" class="btn btn-ghost">Clear</button>
+        </div>
+      </div>
+
+      <div class="detection-results-area">
+        <div class="threat-score-section">
+          <div class="threat-score-display">
+            <span id="threat-score-value">0</span><span class="threat-max">/100</span>
+          </div>
+          <span id="threat-label" class="badge">SAFE</span>
+          <div class="threat-meter">
+            <div id="threat-fill" class="threat-fill"></div>
+          </div>
+        </div>
+
+        <div class="engines-section">
+          <h3>Detection Engines</h3>
+          <div id="engine-results" class="engine-results">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="matches-section">
+          <h3>Pattern Matches</h3>
+          <div id="pattern-matches">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: OWASP TOP 10 -->
+  <section id="owasp" class="section">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title">OWASP Top 10 for LLMs</h2>
+      <p class="section-subtitle">The most critical security risks in Large Language Model applications (2025)</p>
+    </div>
+
+    <div id="owasp-grid" class="owasp-grid animate-on-scroll">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- SECTION 6: DEFENSE STRATEGIES -->
+  <section id="defense" class="section">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title">Defense-in-Depth</h2>
+      <p class="section-subtitle">Layered security strategies for protecting LLM applications</p>
+    </div>
+
+    <div id="defense-flow" class="defense-flow animate-on-scroll">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="defense-container animate-on-scroll">
+      <div id="defense-layers-list" class="defense-layers-list">
+        <!-- Populated by JS -->
+      </div>
+      <div id="defense-detail-panel" class="defense-detail-panel">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: PEN TEST SIMULATOR -->
+  <section id="pentest" class="section">
+    <div class="section-header animate-on-scroll">
+      <h2 class="section-title">Penetration Test Simulator</h2>
+      <p class="section-subtitle">Walk through a simulated security assessment of LLM applications</p>
+    </div>
+
+    <div id="scenario-grid" class="scenario-grid animate-on-scroll">
+      <!-- Populated by JS -->
+    </div>
+
+    <div id="pentest-workspace" class="pentest-workspace" style="display:none;">
+      <div class="pentest-header">
+        <button id="pentest-back-btn" class="btn btn-ghost btn-sm">← Back to Scenarios</button>
+        <h3 id="pentest-title">Scenario Title</h3>
+      </div>
+      
+      <div id="phase-nav" class="phase-nav">
+        <!-- Populated by JS -->
+      </div>
+
+      <div id="phase-content" class="phase-content">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="pentest-actions">
+        <button id="run-step-btn" class="btn btn-danger">▶ Execute Next Step</button>
+        <button id="generate-report-btn" class="btn btn-success" style="display:none">📊 Generate Report</button>
+      </div>
+
+      <div id="pentest-report" class="pentest-report" style="display:none;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">Context<span class="highlight">Zero</span></div>
+      <p>Information Security Mini-Project</p>
+      <p class="footer-disclaimer">Built for educational purposes. All attack demonstrations are simulated.</p>
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> Context Zero</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
